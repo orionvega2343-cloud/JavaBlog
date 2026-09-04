@@ -1,6 +1,6 @@
 db:
-  db_name: blog
-  db_user: postgres
-  db_host: localhost
-  db_port: 5432
-  db_ssl_mode: disable
+  dbName: blog
+  dbUser: postgres
+  dbHost: localhost
+  dbPort: 5432
+  dbSslMode: disable
