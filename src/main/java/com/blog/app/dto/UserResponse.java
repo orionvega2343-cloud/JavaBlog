@@ -1,16 +1,13 @@
-package com.blog.app.domain;
+package com.blog.app.dto;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
-public class User {
+public class UserResponse {
     private Long id;
     private String name;
     private String email;
-    private String passwordHash;
     private OffsetDateTime createdAt;
 
-    //Геттеры
     public Long getId()
     {
         return id;
@@ -26,17 +23,11 @@ public class User {
         return email;
     }
 
-    public String getPasswordHash()
-    {
-        return passwordHash;
-    }
-
     public OffsetDateTime getCreatedAt()
     {
         return createdAt;
     }
 
-    //Сеттеры
     public void setId(Long id)
     {
         this.id = id;
@@ -52,16 +43,8 @@ public class User {
         this.email = email;
     }
 
-    public void setPasswordHash(String passwordHash)
-    {
-        this.passwordHash = passwordHash;
-    }
-
     public void setCreatedAt(OffsetDateTime createdAt)
     {
-        this.createdAt =createdAt;
+        this.createdAt = createdAt;
     }
-
 }
-
-
