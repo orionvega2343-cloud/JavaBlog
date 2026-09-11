@@ -1,14 +1,20 @@
 package com.blog.app;
 
 import com.blog.app.db.Db;
+import com.blog.app.domain.UserService;
+import com.blog.app.handlers.UserHandlerImpl;
+import com.blog.app.repository.UserRepo;
+import com.blog.app.service.UserServiceImpl;
+import com.sun.net.httpserver.HttpServer;
 import com.zaxxer.hikari.HikariDataSource;
 import config.AppConfig;
-import config.DbConfig;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
 
 public class Main
 {
@@ -24,7 +30,19 @@ public class Main
         {
             System.out.print("failed connection to database");
         }
+        UserRepo userRepo = new UserRepo(dataSourse);
+        UserService userService = new UserServiceImpl(userRepo);
+        UserHandlerImpl userHandler = new UserHandlerImpl(userService);
 
+        try
+        {   HttpServer server = HttpServer.create(new InetSocketAddress(8080),0);
+            server.createContext("/users", userHandler);
+            server.start();
+        } catch (IOException i)
+        {
+            throw new RuntimeException("failed to build server", i);
+        }
+        System.out.println("Running server");
     }
 }
 
